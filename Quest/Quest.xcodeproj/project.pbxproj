@@ -1,0 +1,570 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A37A3471C33F078005027C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3461C33F078005027C8 /* main.m */; };
+		5A37A34A1C33F078005027C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3491C33F078005027C8 /* AppDelegate.m */; };
+		5A37A3521C33F078005027C8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3511C33F078005027C8 /* GameViewController.m */; };
+		5A37A3551C33F078005027C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A37A3531C33F078005027C8 /* Main.storyboard */; };
+		5A37A3571C33F078005027C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A37A3561C33F078005027C8 /* Assets.xcassets */; };
+		5A37A35A1C33F078005027C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A37A3581C33F078005027C8 /* LaunchScreen.storyboard */; };
+		5A37A3651C33F078005027C8 /* QuestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3641C33F078005027C8 /* QuestTests.m */; };
+		5A37A3701C33F078005027C8 /* QuestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A36F1C33F078005027C8 /* QuestUITests.m */; };
+		5A37A3821C3418C4005027C8 /* CSLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3811C3418C4005027C8 /* CSLevel.m */; };
+		5A37A3851C343D26005027C8 /* CSStartMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3841C343D26005027C8 /* CSStartMenu.m */; };
+		5A37A3881C344ECE005027C8 /* CSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A37A3871C344ECE005027C8 /* CSCharacter.m */; };
+		5A37A38B1C344FDF005027C8 /* GameData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A37A38A1C344FDF005027C8 /* GameData.plist */; };
+		5ACE21811C3459FF00BCEF50 /* front.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5ACE21801C3459FF00BCEF50 /* front.atlas */; };
+		5ACE21861C345AA800BCEF50 /* back.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5ACE21821C345AA800BCEF50 /* back.atlas */; };
+		5ACE21871C345AA800BCEF50 /* blob.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5ACE21831C345AA800BCEF50 /* blob.atlas */; };
+		5ACE21881C345AA800BCEF50 /* side.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5ACE21841C345AA800BCEF50 /* side.atlas */; };
+		5ACE21891C345AA800BCEF50 /* still.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5ACE21851C345AA800BCEF50 /* still.atlas */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A37A3611C33F078005027C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A37A33A1C33F078005027C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A37A3411C33F078005027C8;
+			remoteInfo = Quest;
+		};
+		5A37A36C1C33F078005027C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A37A33A1C33F078005027C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A37A3411C33F078005027C8;
+			remoteInfo = Quest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5A37A3421C33F078005027C8 /* Quest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A37A3461C33F078005027C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5A37A3481C33F078005027C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5A37A3491C33F078005027C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5A37A3501C33F078005027C8 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		5A37A3511C33F078005027C8 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		5A37A3541C33F078005027C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5A37A3561C33F078005027C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5A37A3591C33F078005027C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5A37A35B1C33F078005027C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A37A3601C33F078005027C8 /* QuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A37A3641C33F078005027C8 /* QuestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestTests.m; sourceTree = "<group>"; };
+		5A37A3661C33F078005027C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A37A36B1C33F078005027C8 /* QuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A37A36F1C33F078005027C8 /* QuestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestUITests.m; sourceTree = "<group>"; };
+		5A37A3711C33F078005027C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A37A3801C3418C4005027C8 /* CSLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLevel.h; sourceTree = "<group>"; };
+		5A37A3811C3418C4005027C8 /* CSLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSLevel.m; sourceTree = "<group>"; };
+		5A37A3831C343D26005027C8 /* CSStartMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSStartMenu.h; sourceTree = "<group>"; };
+		5A37A3841C343D26005027C8 /* CSStartMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSStartMenu.m; sourceTree = "<group>"; };
+		5A37A3861C344ECE005027C8 /* CSCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCharacter.h; sourceTree = "<group>"; };
+		5A37A3871C344ECE005027C8 /* CSCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCharacter.m; sourceTree = "<group>"; };
+		5A37A3891C344F07005027C8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		5A37A38A1C344FDF005027C8 /* GameData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameData.plist; sourceTree = "<group>"; };
+		5ACE21801C3459FF00BCEF50 /* front.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = front.atlas; sourceTree = "<group>"; };
+		5ACE21821C345AA800BCEF50 /* back.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = back.atlas; sourceTree = "<group>"; };
+		5ACE21831C345AA800BCEF50 /* blob.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = blob.atlas; sourceTree = "<group>"; };
+		5ACE21841C345AA800BCEF50 /* side.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = side.atlas; sourceTree = "<group>"; };
+		5ACE21851C345AA800BCEF50 /* still.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = still.atlas; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5A37A33F1C33F078005027C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A35D1C33F078005027C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A3681C33F078005027C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A37A3391C33F078005027C8 = {
+			isa = PBXGroup;
+			children = (
+				5A37A3441C33F078005027C8 /* Quest */,
+				5A37A3631C33F078005027C8 /* QuestTests */,
+				5A37A36E1C33F078005027C8 /* QuestUITests */,
+				5A37A3431C33F078005027C8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5A37A3431C33F078005027C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A37A3421C33F078005027C8 /* Quest.app */,
+				5A37A3601C33F078005027C8 /* QuestTests.xctest */,
+				5A37A36B1C33F078005027C8 /* QuestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A37A3441C33F078005027C8 /* Quest */ = {
+			isa = PBXGroup;
+			children = (
+				5A37A3481C33F078005027C8 /* AppDelegate.h */,
+				5A37A3491C33F078005027C8 /* AppDelegate.m */,
+				5A37A3501C33F078005027C8 /* GameViewController.h */,
+				5A37A3511C33F078005027C8 /* GameViewController.m */,
+				5A37A3531C33F078005027C8 /* Main.storyboard */,
+				5A37A3581C33F078005027C8 /* LaunchScreen.storyboard */,
+				5A37A35B1C33F078005027C8 /* Info.plist */,
+				5A37A3451C33F078005027C8 /* Supporting Files */,
+				5A37A3801C3418C4005027C8 /* CSLevel.h */,
+				5A37A3811C3418C4005027C8 /* CSLevel.m */,
+				5A37A3831C343D26005027C8 /* CSStartMenu.h */,
+				5A37A3841C343D26005027C8 /* CSStartMenu.m */,
+				5A37A3861C344ECE005027C8 /* CSCharacter.h */,
+				5A37A3891C344F07005027C8 /* Constants.h */,
+				5A37A3871C344ECE005027C8 /* CSCharacter.m */,
+				5A37A38A1C344FDF005027C8 /* GameData.plist */,
+				5A37A3561C33F078005027C8 /* Assets.xcassets */,
+				5ACE21821C345AA800BCEF50 /* back.atlas */,
+				5ACE21831C345AA800BCEF50 /* blob.atlas */,
+				5ACE21841C345AA800BCEF50 /* side.atlas */,
+				5ACE21851C345AA800BCEF50 /* still.atlas */,
+				5ACE21801C3459FF00BCEF50 /* front.atlas */,
+			);
+			path = Quest;
+			sourceTree = "<group>";
+		};
+		5A37A3451C33F078005027C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A37A3461C33F078005027C8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5A37A3631C33F078005027C8 /* QuestTests */ = {
+			isa = PBXGroup;
+			children = (
+				5A37A3641C33F078005027C8 /* QuestTests.m */,
+				5A37A3661C33F078005027C8 /* Info.plist */,
+			);
+			path = QuestTests;
+			sourceTree = "<group>";
+		};
+		5A37A36E1C33F078005027C8 /* QuestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5A37A36F1C33F078005027C8 /* QuestUITests.m */,
+				5A37A3711C33F078005027C8 /* Info.plist */,
+			);
+			path = QuestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5A37A3411C33F078005027C8 /* Quest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A37A3741C33F078005027C8 /* Build configuration list for PBXNativeTarget "Quest" */;
+			buildPhases = (
+				5A37A33E1C33F078005027C8 /* Sources */,
+				5A37A33F1C33F078005027C8 /* Frameworks */,
+				5A37A3401C33F078005027C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Quest;
+			productName = Quest;
+			productReference = 5A37A3421C33F078005027C8 /* Quest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5A37A35F1C33F078005027C8 /* QuestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A37A3771C33F078005027C8 /* Build configuration list for PBXNativeTarget "QuestTests" */;
+			buildPhases = (
+				5A37A35C1C33F078005027C8 /* Sources */,
+				5A37A35D1C33F078005027C8 /* Frameworks */,
+				5A37A35E1C33F078005027C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A37A3621C33F078005027C8 /* PBXTargetDependency */,
+			);
+			name = QuestTests;
+			productName = QuestTests;
+			productReference = 5A37A3601C33F078005027C8 /* QuestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5A37A36A1C33F078005027C8 /* QuestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A37A37A1C33F078005027C8 /* Build configuration list for PBXNativeTarget "QuestUITests" */;
+			buildPhases = (
+				5A37A3671C33F078005027C8 /* Sources */,
+				5A37A3681C33F078005027C8 /* Frameworks */,
+				5A37A3691C33F078005027C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A37A36D1C33F078005027C8 /* PBXTargetDependency */,
+			);
+			name = QuestUITests;
+			productName = QuestUITests;
+			productReference = 5A37A36B1C33F078005027C8 /* QuestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A37A33A1C33F078005027C8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = CoodyChou;
+				TargetAttributes = {
+					5A37A3411C33F078005027C8 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					5A37A35F1C33F078005027C8 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 5A37A3411C33F078005027C8;
+					};
+					5A37A36A1C33F078005027C8 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 5A37A3411C33F078005027C8;
+					};
+				};
+			};
+			buildConfigurationList = 5A37A33D1C33F078005027C8 /* Build configuration list for PBXProject "Quest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5A37A3391C33F078005027C8;
+			productRefGroup = 5A37A3431C33F078005027C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5A37A3411C33F078005027C8 /* Quest */,
+				5A37A35F1C33F078005027C8 /* QuestTests */,
+				5A37A36A1C33F078005027C8 /* QuestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5A37A3401C33F078005027C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A37A38B1C344FDF005027C8 /* GameData.plist in Resources */,
+				5ACE21811C3459FF00BCEF50 /* front.atlas in Resources */,
+				5ACE21881C345AA800BCEF50 /* side.atlas in Resources */,
+				5ACE21861C345AA800BCEF50 /* back.atlas in Resources */,
+				5A37A35A1C33F078005027C8 /* LaunchScreen.storyboard in Resources */,
+				5A37A3571C33F078005027C8 /* Assets.xcassets in Resources */,
+				5A37A3551C33F078005027C8 /* Main.storyboard in Resources */,
+				5ACE21871C345AA800BCEF50 /* blob.atlas in Resources */,
+				5ACE21891C345AA800BCEF50 /* still.atlas in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A35E1C33F078005027C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A3691C33F078005027C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A37A33E1C33F078005027C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A37A3521C33F078005027C8 /* GameViewController.m in Sources */,
+				5A37A3851C343D26005027C8 /* CSStartMenu.m in Sources */,
+				5A37A34A1C33F078005027C8 /* AppDelegate.m in Sources */,
+				5A37A3821C3418C4005027C8 /* CSLevel.m in Sources */,
+				5A37A3471C33F078005027C8 /* main.m in Sources */,
+				5A37A3881C344ECE005027C8 /* CSCharacter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A35C1C33F078005027C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A37A3651C33F078005027C8 /* QuestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A37A3671C33F078005027C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A37A3701C33F078005027C8 /* QuestUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A37A3621C33F078005027C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A37A3411C33F078005027C8 /* Quest */;
+			targetProxy = 5A37A3611C33F078005027C8 /* PBXContainerItemProxy */;
+		};
+		5A37A36D1C33F078005027C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A37A3411C33F078005027C8 /* Quest */;
+			targetProxy = 5A37A36C1C33F078005027C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5A37A3531C33F078005027C8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A37A3541C33F078005027C8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5A37A3581C33F078005027C8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A37A3591C33F078005027C8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5A37A3721C33F078005027C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5A37A3731C33F078005027C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A37A3751C33F078005027C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Quest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.Quest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5A37A3761C33F078005027C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Quest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.Quest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5A37A3781C33F078005027C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = QuestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.QuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest.app/Quest";
+			};
+			name = Debug;
+		};
+		5A37A3791C33F078005027C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = QuestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.QuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest.app/Quest";
+			};
+			name = Release;
+		};
+		5A37A37B1C33F078005027C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = QuestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.QuestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Quest;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		5A37A37C1C33F078005027C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.normi.QuestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Quest;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A37A33D1C33F078005027C8 /* Build configuration list for PBXProject "Quest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A37A3721C33F078005027C8 /* Debug */,
+				5A37A3731C33F078005027C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A37A3741C33F078005027C8 /* Build configuration list for PBXNativeTarget "Quest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A37A3751C33F078005027C8 /* Debug */,
+				5A37A3761C33F078005027C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A37A3771C33F078005027C8 /* Build configuration list for PBXNativeTarget "QuestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A37A3781C33F078005027C8 /* Debug */,
+				5A37A3791C33F078005027C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A37A37A1C33F078005027C8 /* Build configuration list for PBXNativeTarget "QuestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A37A37B1C33F078005027C8 /* Debug */,
+				5A37A37C1C33F078005027C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A37A33A1C33F078005027C8 /* Project object */;
+}
