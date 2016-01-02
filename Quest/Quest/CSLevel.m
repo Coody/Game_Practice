@@ -8,8 +8,16 @@
 
 #import "CSLevel.h"
 
-@interface CSLevel(){
+// for Const
+#import "Constants.h"
+
+// for node
+#import "CSCharacter.h"
+
+@interface CSLevel() < SKPhysicsContactDelegate >
+{
     SKNode *myWorld;
+    CSCharacter *leader;
 }
 @end
 
@@ -19,6 +27,9 @@
     if ( self = [super initWithSize:size] ) {
         
         [self setUpScene];
+        
+        [self performSelector:@selector(setUpCharacters) withObject:nil afterDelay:4.0f];
+        
     }
     return self;
 }
@@ -32,6 +43,26 @@
     SKSpriteNode *map = [SKSpriteNode spriteNodeWithImageNamed:@"level_map1"];
     map.position = CGPointMake(0, 0);
     
+    // physics
+    self.physicsWorld.gravity = CGVectorMake(0, 1);
+    self.physicsWorld.contactDelegate = self;
+    
+    myWorld.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:map.frame];
+    myWorld.physicsBody.categoryBitMask = wallCategory;
+    
+}
+
+-(void)setUpCharacters{
+    NSLog(@" set up characters!");
+    
+    leader = [CSCharacter node];
+    
+    [myWorld addChild:leader];
+    
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact{
+    SKPhysicsBody *firstBody , *secondBody;
     
     
 }

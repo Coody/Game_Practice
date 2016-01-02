@@ -123,6 +123,7 @@
 		5A37A3441C33F078005027C8 /* Quest */ = {
 			isa = PBXGroup;
 			children = (
+				5A37A3891C344F07005027C8 /* Constants.h */,
 				5A37A3481C33F078005027C8 /* AppDelegate.h */,
 				5A37A3491C33F078005027C8 /* AppDelegate.m */,
 				5A37A3501C33F078005027C8 /* GameViewController.h */,
@@ -136,7 +137,6 @@
 				5A37A3831C343D26005027C8 /* CSStartMenu.h */,
 				5A37A3841C343D26005027C8 /* CSStartMenu.m */,
 				5A37A3861C344ECE005027C8 /* CSCharacter.h */,
-				5A37A3891C344F07005027C8 /* Constants.h */,
 				5A37A3871C344ECE005027C8 /* CSCharacter.m */,
 				5A37A38A1C344FDF005027C8 /* GameData.plist */,
 				5A37A3561C33F078005027C8 /* Assets.xcassets */,
