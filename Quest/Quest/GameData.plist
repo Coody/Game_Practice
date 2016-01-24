@@ -7,11 +7,23 @@
 		<dict>
 			<key>Background</key>
 			<string>level_map1</string>
+			<key>ShrinkBackgroundBoundaryBy</key>
+			<real>0.9</real>
+			<key>DebugBroader</key>
+			<true/>
 			<key>Characters</key>
 			<array>
 				<dict>
+					<key>UseForCollisions</key>
+					<true/>
 					<key>BaseFrame</key>
 					<string>character</string>
+					<key>CollisionBodyType</key>
+					<string>circle</string>
+					<key>CollisionBodyCoversWhatPercent</key>
+					<integer>1</integer>
+					<key>DebugBody</key>
+					<true/>
 				</dict>
 			</array>
 		</dict>
