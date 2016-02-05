@@ -93,12 +93,12 @@ typedef enum{
     
     /////////////// 重要：設定 physics body /////////////////
     self.physicsBody.dynamic = YES;
-    self.physicsBody.restitution = 1.5;
-    self.physicsBody.allowsRotation = YES;
+    self.physicsBody.restitution = 0.2;
+    self.physicsBody.allowsRotation = NO;
     
     self.physicsBody.categoryBitMask = playerCategory;
-    self.physicsBody.collisionBitMask = wallCategory;   // collision 碰撞的意思
-    self.physicsBody.contactTestBitMask = wallCategory; // 碰撞後會聯繫的 category , 可以用 | 來聯繫多個 body
+    self.physicsBody.collisionBitMask = wallCategory | playerCategory;   // collision 碰撞的意思
+    self.physicsBody.contactTestBitMask = wallCategory | playerCategory; // 碰撞後會聯繫的 category , 可以用 | 來聯繫多個 body
 }
 
 -(void)debugPath:(CGRect)theRect bodyType:(int)type{

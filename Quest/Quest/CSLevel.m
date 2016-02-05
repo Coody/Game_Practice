@@ -22,6 +22,17 @@ typedef enum{
 
 @interface CSLevel() < SKPhysicsContactDelegate >
 {
+    // Gesture
+    UISwipeGestureRecognizer *swipeGestureLeft;
+    UISwipeGestureRecognizer *swipeGestureRight;
+    UISwipeGestureRecognizer *swipeGestureUp;
+    UISwipeGestureRecognizer *swipeGestureDown;
+    UITapGestureRecognizer *tapOnce;
+    UITapGestureRecognizer *twoFingerTap;
+    UITapGestureRecognizer *threeFingerTap;
+    UIRotationGestureRecognizer *rotationGR;
+    
+    
     int currentLevel;
     
     SKNode *myWorld;
@@ -40,7 +51,7 @@ typedef enum{
         
         [self setUpScene];
         
-        [self performSelector:@selector(setUpCharacters) withObject:nil afterDelay:4.0f];
+        [self setUpCharacters];
         
     }
     return self;
@@ -85,13 +96,13 @@ typedef enum{
                                            map.frame.size.height * shrinkage);
     
     
-    //////////////////// 重點：設定 physics world ///////////////////
+    //////////////////// 重點：設定 physics world （到 SKScene 上） ///////////////////
     // 設定 physicsWorld 的重力（x,y）
-    self.physicsWorld.gravity = CGVectorMake(0.5, -0.9);
-    // 設定
+    self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
+    // 碰撞 delegate 回呼
     self.physicsWorld.contactDelegate = self;
     
-    /////////////////// 重點：設定玩 physics world 後，再設定 physics body /////////////////
+    /////////////////// 重點：設定完 physics world 後，再設定 physics body （設定到 SKNode 上）/////////////////
     myWorld.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:mapWithSmallerRect];
     myWorld.physicsBody.categoryBitMask = wallCategory;// 給這個碰撞的 body 一個 tag
     
@@ -102,7 +113,7 @@ typedef enum{
 }
 
 
-///////////////// 重點：利用 SKShapeNode 繪製出碰撞的範圍 ////////////
+///////////////// 重點：利用 SKShapeNode 繪製出碰撞的範圍（線條、或形狀 SKShapeNode ） ////////////
 -(void)debugPath:(CGRect)theRect{
     
     SKShapeNode *pathShape = [[SKShapeNode alloc] init];
@@ -113,24 +124,8 @@ typedef enum{
     pathShape.strokeColor = [SKColor greenColor];
     pathShape.position = CGPointMake(0, 0);
     
-    
     pathShape.zPosition = EnumZPosition_Level_Shape;
     [myWorld addChild:pathShape];
-    
-}
-
-//////////////// 重點：實作 SKPhysicsContactDelegate 的碰撞回呼 /////////////
--(void)didBeginContact:(SKPhysicsContact *)contact{
-    SKPhysicsBody *firstBody , *secondBody;
-    
-    firstBody = contact.bodyA;
-    secondBody = contact.bodyB;
-    
-    if ( firstBody.categoryBitMask == wallCategory || secondBody.categoryBitMask == wallCategory ) {
-        NSLog(@" Hit!!!! ");
-        
-        
-    }
     
     
 }
@@ -146,6 +141,31 @@ typedef enum{
     
 }
 
+
+#pragma mark - 碰撞監聽
+//////////////// 重點：實作 SKPhysicsContactDelegate 的碰撞回呼 /////////////
+-(void)didBeginContact:(SKPhysicsContact *)contact{
+    SKPhysicsBody *firstBody , *secondBody;
+    
+    firstBody = contact.bodyA;
+    secondBody = contact.bodyB;
+    
+    if ( firstBody.categoryBitMask == wallCategory || secondBody.categoryBitMask == wallCategory ) {
+        NSLog(@" Hit!!!! ");
+        
+        
+    }
+}
+
+
+#pragma mark - Gesture
+///////////////////// 手勢
+-(void)didMoveToView:(SKView *)view{
+    
+}
+
+#pragma mark - Camera Center In
+///////////////////// 將給定的 node 置中！！！ /////////////////////////
 - (void)didSimulatePhysics{
     [self centerOfNode:leader];
 }
