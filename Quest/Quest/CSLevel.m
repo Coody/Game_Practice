@@ -59,13 +59,15 @@ typedef enum{
 
 -(void)setUpScene{
     
+    
     ////////////////////// 重點：從 plist 取得關卡資料、並且載入 ////////////////////
     // 取得 level 以及 character 的資料，從 .plist 中
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSString *finalPath = [path stringByAppendingPathComponent:@"GameData.plist"];
     NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:finalPath];
-    
     NSLog(@" plist = %@" , plistData);
+    
+    
     
     // 取得 level 資料
     NSMutableArray *levelArray = [NSMutableArray arrayWithArray:[plistData objectForKey:@"Levels"]];
@@ -73,16 +75,22 @@ typedef enum{
     characterArray = [NSArray arrayWithArray:[levelDict objectForKey:@"Characters"]];
     NSLog(@" character array = %@" , characterArray);
     
+    
+    
     // 初始化 myWord 的基礎 SKNode
     self.anchorPoint = CGPointMake(0.5, 0.5);
     myWorld = [SKNode node];
     [self addChild:myWorld];
+    
+    
     
     // 設定背景樣式（使用 SKSpriteNode ）
     SKSpriteNode *map = [SKSpriteNode spriteNodeWithImageNamed:[levelDict objectForKey:@"Background"]];
     map.position = CGPointMake(0, 0);
     [myWorld addChild:map];
     map.zPosition = EnumZPosition_Level_Map;
+    
+    
     
     // 設定真正 physics 碰撞的 frame
     float shrinkage = [[levelDict objectForKey:@"ShrinkBackgroundBoundaryBy"] floatValue];
@@ -96,19 +104,22 @@ typedef enum{
                                            map.frame.size.height * shrinkage);
     
     
-    //////////////////// 重點：設定 physics world （到 SKScene 上） ///////////////////
+
     // 設定 physicsWorld 的重力（x,y）
     self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
     // 碰撞 delegate 回呼
     self.physicsWorld.contactDelegate = self;
     
     /////////////////// 重點：設定完 physics world 後，再設定 physics body （設定到 SKNode 上）/////////////////
+
     myWorld.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:mapWithSmallerRect];
     myWorld.physicsBody.categoryBitMask = wallCategory;// 給這個碰撞的 body 一個 tag
     
     if ( [[levelDict objectForKey:@"DebugBroader"] boolValue] == YES ) {
         [self debugPath:map.frame];
     }
+    
+    
     
 }
 
@@ -171,6 +182,20 @@ typedef enum{
 }
 
 -(void)centerOfNode:(SKNode *)node{
+    
+    /*
+     首先是坐标系，游戏开发中必须要注意的，如果一个游戏开发者连坐标系都不知道是什么的话，还谈何开发。
+     坐标系主要有屏幕坐标系和游戏场景里的世界坐标系，屏幕坐标系大家应该都知道，
+     就是原点（0， 0）在屏幕的左上角，而世界坐标系则在屏幕的左下角，两个坐标系可以相互转换，
+     这个在任何游戏引擎里都会有提供一些转换函数，Sprite Kit也不例外，有两个函数可以转换坐标（场景中contents里面的东西也可以根据需要，转变相对参考坐标系）
+     convertPoint：fromNode
+     和
+     convertPoint：ToNode，
+     第一个是formNode转变为当前node的坐标系，
+     第二个则是由当前的转变为toNode的node坐标系，
+     使用这两个函数应该注意区分两个的含义。
+     */
+     
     CGPoint camaraPositionScene = [node.scene convertPoint:node.position fromNode:node.parent];
     node.parent.position = CGPointMake(node.parent.position.x - camaraPositionScene.x, node.parent.position.y - camaraPositionScene.y);
 }
