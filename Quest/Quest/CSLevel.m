@@ -106,7 +106,7 @@ typedef enum{
     
 
     // 設定 physicsWorld 的重力（x,y）
-    self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
+    self.physicsWorld.gravity = CGVectorMake(0.5, -0.9);
     // 碰撞 delegate 回呼
     self.physicsWorld.contactDelegate = self;
     
@@ -172,6 +172,87 @@ typedef enum{
 #pragma mark - Gesture
 ///////////////////// 手勢
 -(void)didMoveToView:(SKView *)view{
+    swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwapeLeft:)];
+    [swipeGestureLeft setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [view addGestureRecognizer:swipeGestureLeft];
+    
+    swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwapeRight:)];
+    [swipeGestureRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [view addGestureRecognizer:swipeGestureRight];
+    
+    swipeGestureUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp:)];
+    [swipeGestureUp setDirection:(UISwipeGestureRecognizerDirectionUp)];
+    [view addGestureRecognizer:swipeGestureUp];
+    
+    swipeGestureDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeDown:)];
+    [swipeGestureDown setDirection:(UISwipeGestureRecognizerDirectionDown)];
+    [view addGestureRecognizer:swipeGestureDown];
+    
+    tapOnce = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnce:)];
+    tapOnce.numberOfTapsRequired = 1;
+    tapOnce.numberOfTouchesRequired = 1;
+    [view addGestureRecognizer:tapOnce];
+    
+    twoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSwipeToSecond:)];
+    twoFingerTap.numberOfTapsRequired = 1;
+    twoFingerTap.numberOfTouchesRequired = 2;
+    [view addGestureRecognizer:twoFingerTap];
+    
+    threeFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapToSwipeToThird:)];
+    threeFingerTap.numberOfTapsRequired = 1;
+    threeFingerTap.numberOfTouchesRequired = 3;
+    [view addGestureRecognizer:threeFingerTap];
+    
+    rotationGR = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
+    [view addGestureRecognizer:rotationGR];
+}
+
+-(void)handleSwapeLeft:(UISwipeGestureRecognizer *)recognizer{
+    NSLog(@"Left");
+}
+
+-(void)handleSwapeRight:(UISwipeGestureRecognizer *)recognizer{
+    NSLog(@"Right");
+}
+
+-(void)handleSwipeUp:(UISwipeGestureRecognizer *)recognizer{
+    NSLog(@"Up");
+}
+
+-(void)handleSwipeDown:(UISwipeGestureRecognizer *)recognizer{
+    NSLog(@"Down");
+}
+
+-(void)tappedOnce:(UITapGestureRecognizer *)recognizer{
+    NSLog(@"Tap Once");
+}
+
+-(void)tapToSwipeToSecond:(UITapGestureRecognizer *)recognizer{
+    NSLog(@"Tap Twice");
+}
+
+-(void)tapToSwipeToThird:(UITapGestureRecognizer *)recognizer{
+    NSLog(@"Tap Third");
+}
+
+-(void)handleRotation:(UIRotationGestureRecognizer *)recognizer{
+    
+    if ( recognizer.state == UIGestureRecognizerStateEnded ) {
+        NSLog(@"Rotate");
+    }
+}
+
+-(void)willMoveFromView:(SKView *)view{
+    NSLog(@"Scene moved from view");
+    
+    [view removeGestureRecognizer:swipeGestureLeft];
+    [view removeGestureRecognizer:swipeGestureRight];
+    [view removeGestureRecognizer:swipeGestureUp];
+    [view removeGestureRecognizer:swipeGestureDown];
+    [view removeGestureRecognizer:tapOnce];
+    [view removeGestureRecognizer:twoFingerTap];
+    [view removeGestureRecognizer:threeFingerTap];
+    [view removeGestureRecognizer:rotationGR];
     
 }
 
@@ -184,19 +265,23 @@ typedef enum{
 -(void)centerOfNode:(SKNode *)node{
     
     /*
-     首先是坐标系，游戏开发中必须要注意的，如果一个游戏开发者连坐标系都不知道是什么的话，还谈何开发。
-     坐标系主要有屏幕坐标系和游戏场景里的世界坐标系，屏幕坐标系大家应该都知道，
-     就是原点（0， 0）在屏幕的左上角，而世界坐标系则在屏幕的左下角，两个坐标系可以相互转换，
-     这个在任何游戏引擎里都会有提供一些转换函数，Sprite Kit也不例外，有两个函数可以转换坐标（场景中contents里面的东西也可以根据需要，转变相对参考坐标系）
+     首先是坐標系，遊戲開發中必須要注意的，如果一個遊戲開發者連坐標系都不知道是什麼的話，還談何開發。
+     坐標系主要有屏幕坐標系和遊戲場景裡的世界坐標系，屏幕坐標系大家應該都知道，
+     就是原點（0， 0）在屏幕的左上角，而世界坐標系則在屏幕的左下角，兩個坐標系可以相互轉換，
+     這個在任何遊戲引擎裡都會有提供一些轉換函數， Sprite Kit 也不例外，有兩個函數可以轉換坐標（場景中contents裡面的東西也可以根據需要，轉變相對參考坐標系）
      convertPoint：fromNode
      和
      convertPoint：ToNode，
-     第一个是formNode转变为当前node的坐标系，
-     第二个则是由当前的转变为toNode的node坐标系，
-     使用这两个函数应该注意区分两个的含义。
+     第一個是 formNode 轉變為當前node的坐標系，
+     第二個則是由當前的轉變為toNode的node坐標系，
+     使用這兩個函數應該注意區分兩個的含義。
      */
-     
+    
+    
+    // 強制將 node.parent 的節點轉成目前（ node ）的座標軸位置，避免座標軸不同造成問題
     CGPoint camaraPositionScene = [node.scene convertPoint:node.position fromNode:node.parent];
+    
+    // 將 node.parent(父節點) 的位置改成 node 的位置
     node.parent.position = CGPointMake(node.parent.position.x - camaraPositionScene.x, node.parent.position.y - camaraPositionScene.y);
 }
 

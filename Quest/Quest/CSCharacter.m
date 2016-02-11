@@ -93,12 +93,22 @@ typedef enum{
     
     /////////////// 重要：設定 physics body /////////////////
     self.physicsBody.dynamic = YES;
+    
+    // 設定反彈力
     self.physicsBody.restitution = 0.2;
+    
+    // 禁止旋轉
     self.physicsBody.allowsRotation = NO;
     
+    // 設定 BitMask 來標示物件
     self.physicsBody.categoryBitMask = playerCategory;
-    self.physicsBody.collisionBitMask = wallCategory | playerCategory;   // collision 碰撞的意思
-    self.physicsBody.contactTestBitMask = wallCategory | playerCategory; // 碰撞後會聯繫的 category , 可以用 | 來聯繫多個 body
+    
+    // collision 碰撞的意思，設定碰撞的 BitMask ，意思是說你要監聽碰撞到哪些東西的時候給回應
+    // （ 牆壁、以及其他 player character 物件 ）
+    self.physicsBody.collisionBitMask = wallCategory | playerCategory;
+    
+    // 碰撞後會聯繫的 category ，可以用 | 來聯繫多個 body ，然後同上
+    self.physicsBody.contactTestBitMask = wallCategory | playerCategory;
 }
 
 -(void)debugPath:(CGRect)theRect bodyType:(int)type{
@@ -106,7 +116,7 @@ typedef enum{
     SKShapeNode *pathShape = [[SKShapeNode alloc] init];
     CGPathRef thePath ;
     if ( type == squareType ) {
-         thePath = CGPathCreateWithRect( theRect , NULL);
+        thePath = CGPathCreateWithRect( theRect , NULL);
     }
     else{
         thePath = CGPathCreateWithEllipseInRect( theRect , NULL);
