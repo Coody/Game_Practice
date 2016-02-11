@@ -7,11 +7,67 @@
 		<dict>
 			<key>Background</key>
 			<string>level_map1</string>
+			<key>ShrinkBackgroundBoundaryBy</key>
+			<real>0.9</real>
+			<key>DebugBroader</key>
+			<true/>
 			<key>Characters</key>
 			<array>
 				<dict>
 					<key>BaseFrame</key>
 					<string>character</string>
+					<key>StartLocation</key>
+					<string>{ 0 , 0 }</string>
+					<key>UseForCollisions</key>
+					<true/>
+					<key>CollisionBodyType</key>
+					<string>circle</string>
+					<key>CollisionBodyCoversWhatPercent</key>
+					<integer>1</integer>
+					<key>DebugBody</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>BaseFrame</key>
+					<string>character</string>
+					<key>StartLocation</key>
+					<string>{ -100 , 0 }</string>
+					<key>UseForCollisions</key>
+					<true/>
+					<key>CollisionBodyType</key>
+					<string>circle</string>
+					<key>CollisionBodyCoversWhatPercent</key>
+					<integer>1</integer>
+					<key>DebugBody</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>BaseFrame</key>
+					<string>character</string>
+					<key>StartLocation</key>
+					<string>{ -200 , 0 }</string>
+					<key>UseForCollisions</key>
+					<true/>
+					<key>CollisionBodyType</key>
+					<string>circle</string>
+					<key>CollisionBodyCoversWhatPercent</key>
+					<integer>1</integer>
+					<key>DebugBody</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>BaseFrame</key>
+					<string>character</string>
+					<key>StartLocation</key>
+					<string>{ 100 , 0 }</string>
+					<key>UseForCollisions</key>
+					<true/>
+					<key>CollisionBodyType</key>
+					<string>circle</string>
+					<key>CollisionBodyCoversWhatPercent</key>
+					<integer>1</integer>
+					<key>DebugBody</key>
+					<true/>
 				</dict>
 			</array>
 		</dict>

@@ -10,4 +10,6 @@
 
 @interface CSCharacter : SKNode
 
+-(void)createWithDictionary:(NSDictionary *)charData;
+
 @end

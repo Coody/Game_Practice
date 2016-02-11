@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "level_map1-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "level_map1.png",
       "scale" : "2x"
     },
     {
