@@ -32,6 +32,7 @@ typedef enum{
     UITapGestureRecognizer *threeFingerTap;
     UIRotationGestureRecognizer *rotationGR;
     
+    unsigned char charactersInWorld;    // 0 ~ 255
     
     int currentLevel;
     
@@ -48,6 +49,7 @@ typedef enum{
     if ( self = [super initWithSize:size] ) {
         
         currentLevel = 0;
+        charactersInWorld = 0;
         
         [self setUpScene];
         
@@ -57,6 +59,7 @@ typedef enum{
     return self;
 }
 
+#pragma mark - Setup Scene
 -(void)setUpScene{
     
     
@@ -106,7 +109,7 @@ typedef enum{
     
 
     // 設定 physicsWorld 的重力（x,y）
-    self.physicsWorld.gravity = CGVectorMake(0.5, -0.9);
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
     // 碰撞 delegate 回呼
     self.physicsWorld.contactDelegate = self;
     
@@ -141,6 +144,7 @@ typedef enum{
     
 }
 
+#pragma mark - Setup Character
 -(void)setUpCharacters{
     NSLog(@" set up characters!");
     
@@ -150,8 +154,33 @@ typedef enum{
     [myWorld addChild:leader];
     leader.zPosition = EnumZPosition_Level_Leader;
     
+    int count = 1;
+    while ( count < [characterArray count] ) {
+        
+        [self performSelector:@selector(createAnotherCharacter) withObject:nil afterDelay:(0.5 * count)];
+        
+        count++;
+    }
+    
 }
 
+-(void)createAnotherCharacter{
+    charactersInWorld++;
+    
+    CSCharacter *character = [CSCharacter node];
+    [character createWithDictionary:[characterArray objectAtIndex:charactersInWorld]];
+    [myWorld addChild:character];
+    
+    character.zPosition = character.zPosition - charactersInWorld;
+    
+}
+
+
+#pragma mark - Update
+#pragma mark 重要！
+-(void)update:(NSTimeInterval)currentTime{
+    
+}
 
 #pragma mark - 碰撞監聽
 //////////////// 重點：實作 SKPhysicsContactDelegate 的碰撞回呼 /////////////
@@ -285,8 +314,5 @@ typedef enum{
     node.parent.position = CGPointMake(node.parent.position.x - camaraPositionScene.x, node.parent.position.y - camaraPositionScene.y);
 }
 
--(void)update:(NSTimeInterval)currentTime{
-    
-}
 
 @end

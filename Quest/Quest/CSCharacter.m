@@ -12,6 +12,7 @@
 #import "Constants.h"
 
 typedef enum{
+    EnumZPosition_CSCharacter_Self = 100,
     EnumZPosition_CSCharacter_Shape = 1000,
 }EnumZPosition_CSCharacter;
 
@@ -50,11 +51,33 @@ typedef enum{
     
     character = [SKSpriteNode spriteNodeWithImageNamed:[characterData objectForKey:@"BaseFrame"]];
     [self addChild:character];
+    self.zPosition = EnumZPosition_CSCharacter_Self;
+    self.name = @"Character";
+    self.position = CGPointFromString([charData objectForKey:@"StartLocation"]);
     
     useForCollisions = [[characterData objectForKey:@"UseForCollisions"] boolValue];
     
     if ( useForCollisions == YES ) {
         [self setupPhysics];
+    }
+    
+    /*
+     
+     參考：http://ios-imaxlive.blogspot.tw/2013/07/uiuserinterfaceidiom.html
+     
+    UI_USER_INTERFACE_IDIOM() 使用中的設備類型
+    在使用 storyboad 時, 必須指明要使用的 device 是 iPad 或 iPhone, 會產生出2個不同的名字, 如果是要從 即有的 xib 裡切換 presentModalViewController 時可能就會遇這一個問題.
+    
+    判斷目前執行中的 Device 是使用 iPad 還是 iPhone, 請參考下面的範例:
+     */
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        // The device is an iPad running iOS 3.2 or later.
+        self.xScale = .75;
+        self.yScale = .75;
+    }
+    else {
+        // The device is an iPhone or iPod touch.
     }
 }
 
