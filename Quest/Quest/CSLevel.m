@@ -53,10 +53,20 @@ typedef enum{
         
         [self setUpScene];
         
-        [self setUpCharacters];
+        [self performSelector:@selector(setUpCharacters)
+                   withObject:nil
+                   afterDelay:2.0f];
         
     }
     return self;
+}
+
+-(void)pauseScene{
+    self.paused = YES;
+}
+
+-(void)unPauseScene{
+    self.paused = NO;
 }
 
 #pragma mark - Setup Scene
@@ -179,7 +189,17 @@ typedef enum{
 #pragma mark - Update
 #pragma mark 重要！
 -(void)update:(NSTimeInterval)currentTime{
-    
+    // 這裡的 Name 可以用 @"*" 代表( myWorld )全部的 Child ，或是 @"//character" 代表全部的 sub children of
+    [myWorld enumerateChildNodesWithName:@"character"
+                              usingBlock:
+     ^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+                                  
+        // do something if we find a character insoide of myWorld
+        CSCharacter *character = (CSCharacter *)node;
+        [character update];
+         
+         
+     }];
 }
 
 #pragma mark - 碰撞監聽
@@ -238,18 +258,87 @@ typedef enum{
 
 -(void)handleSwapeLeft:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"Left");
+    
+    __block unsigned char place = 0;
+    
+    [myWorld enumerateChildNodesWithName:@"character" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        
+        CSCharacter *character = (CSCharacter *)node;
+        
+        if ( character == leader ) {
+            [character moveLeftWithPlace:[NSNumber numberWithInt:0]];
+        }
+        else{
+            [character moveLeftWithPlace:[NSNumber numberWithInt:place]];
+        }
+        
+        place++;
+        
+    }];
+    
 }
 
 -(void)handleSwapeRight:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"Right");
+    
+    __block unsigned char place = 0;
+    
+    [myWorld enumerateChildNodesWithName:@"character" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        
+        CSCharacter *character = (CSCharacter *)node;
+        
+        if ( character == leader ) {
+            [character moveRightWithPlace:[NSNumber numberWithInt:0]];
+        }
+        else{
+            [character moveRightWithPlace:[NSNumber numberWithInt:place]];
+        }
+        
+        place++;
+        
+    }];
 }
 
 -(void)handleSwipeUp:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"Up");
+    
+    __block unsigned char place = 0;
+    
+    [myWorld enumerateChildNodesWithName:@"character" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        
+        CSCharacter *character = (CSCharacter *)node;
+        
+        if ( character == leader ) {
+            [character moveUpWithPlace:[NSNumber numberWithInt:0]];
+        }
+        else{
+            [character moveUpWithPlace:[NSNumber numberWithInt:place]];
+        }
+        
+        place++;
+        
+    }];
 }
 
 -(void)handleSwipeDown:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"Down");
+    
+    __block unsigned char place = 0;
+    
+    [myWorld enumerateChildNodesWithName:@"character" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        
+        CSCharacter *character = (CSCharacter *)node;
+        
+        if ( character == leader ) {
+            [character moveDownWithPlace:[NSNumber numberWithInt:0]];
+        }
+        else{
+            [character moveDownWithPlace:[NSNumber numberWithInt:place]];
+        }
+        
+        place++;
+        
+    }];
 }
 
 -(void)tappedOnce:(UITapGestureRecognizer *)recognizer{

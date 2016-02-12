@@ -29,6 +29,9 @@ typedef enum{
     
     unsigned char collisionBodyType; // 0~255
     
+    unsigned char speed;    // 0~255
+    unsigned char currentDirection;
+    
 }
 @end
 
@@ -37,7 +40,8 @@ typedef enum{
 -(id)init{
     if ( self = [super init] ) {
         
-        
+        speed = 5;
+        currentDirection = noDirection;
         
     }
     return self;
@@ -52,7 +56,7 @@ typedef enum{
     character = [SKSpriteNode spriteNodeWithImageNamed:[characterData objectForKey:@"BaseFrame"]];
     [self addChild:character];
     self.zPosition = EnumZPosition_CSCharacter_Self;
-    self.name = @"Character";
+    self.name = @"character";
     self.position = CGPointFromString([charData objectForKey:@"StartLocation"]);
     
     useForCollisions = [[characterData objectForKey:@"UseForCollisions"] boolValue];
@@ -157,4 +161,62 @@ typedef enum{
     
 }
 
+#pragma mark - Update Methods
+-(void)update{
+    switch (currentDirection) {
+        case up:
+        {
+            self.position = CGPointMake(self.position.x, self.position.y + speed);
+        }
+            break;
+        case down:
+        {
+            self.position = CGPointMake(self.position.x, self.position.y - speed);
+        }
+            break;
+        case left:
+        {
+            self.position = CGPointMake(self.position.x - speed, self.position.y);
+        }
+            break;
+        case right:
+        {
+            self.position = CGPointMake(self.position.x + speed, self.position.y);
+        }
+            break;
+        case noDirection:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - Handle Movement
+-(void)moveLeftWithPlace:(NSNumber *)place{
+    currentDirection = left;
+}
+
+-(void)moveRightWithPlace:(NSNumber *)place{
+    currentDirection = right;
+}
+
+-(void)moveDownWithPlace:(NSNumber *)place{
+    currentDirection = down;
+}
+
+-(void)moveUpWithPlace:(NSNumber *)place{
+    currentDirection = up;
+}
+
 @end
+
+
+
+
+
+
+
+
