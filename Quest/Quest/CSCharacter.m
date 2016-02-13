@@ -74,7 +74,7 @@ typedef enum{
     
     判斷目前執行中的 Device 是使用 iPad 還是 iPhone, 請參考下面的範例:
      */
-    
+    /*
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         // The device is an iPad running iOS 3.2 or later.
         self.xScale = .75;
@@ -83,6 +83,7 @@ typedef enum{
     else {
         // The device is an iPhone or iPod touch.
     }
+     */
 }
 
 -(void)setupPhysics{
@@ -146,7 +147,8 @@ typedef enum{
         thePath = CGPathCreateWithRect( theRect , NULL);
     }
     else{
-        thePath = CGPathCreateWithEllipseInRect( theRect , NULL);
+        CGRect adjustedRect = CGRectMake(theRect.origin.x, theRect.origin.y, theRect.size.width, theRect.size.height);
+        thePath = CGPathCreateWithEllipseInRect( adjustedRect , NULL);
     }
     
    
@@ -167,21 +169,49 @@ typedef enum{
         case up:
         {
             self.position = CGPointMake(self.position.x, self.position.y + speed);
+            
+            if ( _theLeader == NO && self.position.x < _idealX ) {
+                self.position = CGPointMake(self.position.x + 1, self.position.y);
+            }
+            else if( _theLeader == NO && self.position.x > _idealX ){
+                self.position = CGPointMake(self.position.x - 1, self.position.y);
+            }
         }
             break;
         case down:
         {
             self.position = CGPointMake(self.position.x, self.position.y - speed);
+            
+            if ( _theLeader == NO && self.position.x < _idealX ) {
+                self.position = CGPointMake(self.position.x + 1, self.position.y);
+            }
+            else if( _theLeader == NO && self.position.x > _idealX ){
+                self.position = CGPointMake(self.position.x - 1, self.position.y);
+            }
         }
             break;
         case left:
         {
             self.position = CGPointMake(self.position.x - speed, self.position.y);
+            
+            if ( _theLeader == NO && self.position.y < _idealY ) {
+                self.position = CGPointMake(self.position.x, self.position.y + 1);
+            }
+            else if( _theLeader == NO && self.position.y > _idealY ){
+                self.position = CGPointMake(self.position.x, self.position.y - 1);
+            }
         }
             break;
         case right:
         {
             self.position = CGPointMake(self.position.x + speed, self.position.y);
+            
+            if ( _theLeader == NO && self.position.y < _idealY ) {
+                self.position = CGPointMake(self.position.x, self.position.y + 1);
+            }
+            else if( _theLeader == NO && self.position.y > _idealY ){
+                self.position = CGPointMake(self.position.x, self.position.y - 1);
+            }
         }
             break;
         case noDirection:
@@ -195,20 +225,39 @@ typedef enum{
 }
 
 #pragma mark - Handle Movement
+CGFloat DegreeToRadians(CGFloat degree)
+{
+    return degree * M_PI / 180;
+};
+
+CGFloat RadiansToDegrees(CGFloat radians)
+{
+    return radians * 180 / M_PI;
+};
+
 -(void)moveLeftWithPlace:(NSNumber *)place{
+    character.zRotation = DegreeToRadians(-90);
     currentDirection = left;
 }
 
 -(void)moveRightWithPlace:(NSNumber *)place{
+    character.zRotation = DegreeToRadians(90);
     currentDirection = right;
 }
 
 -(void)moveDownWithPlace:(NSNumber *)place{
+    character.zRotation = DegreeToRadians(0);
     currentDirection = down;
 }
 
 -(void)moveUpWithPlace:(NSNumber *)place{
+    character.zRotation = DegreeToRadians(180);
     currentDirection = up;
+}
+
+#pragma mark - Leader Stuff
+-(void)makeLeader{
+    _theLeader = YES;
 }
 
 @end

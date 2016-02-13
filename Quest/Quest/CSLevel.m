@@ -160,7 +160,7 @@ typedef enum{
     
     leader = [CSCharacter node];
     [leader createWithDictionary:[characterArray objectAtIndex:0]];
-    
+    [leader makeLeader];
     [myWorld addChild:leader];
     leader.zPosition = EnumZPosition_Level_Leader;
     
@@ -189,14 +189,30 @@ typedef enum{
 #pragma mark - Update
 #pragma mark 重要！
 -(void)update:(NSTimeInterval)currentTime{
+    
+    __weak __typeof(self)weakSelf = self;
     // 這裡的 Name 可以用 @"*" 代表( myWorld )全部的 Child ，或是 @"//character" 代表全部的 sub children of
     [myWorld enumerateChildNodesWithName:@"character"
                               usingBlock:
      ^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
-                                  
-        // do something if we find a character insoide of myWorld
-        CSCharacter *character = (CSCharacter *)node;
-        [character update];
+         
+         __strong __typeof(weakSelf)strongSelf = weakSelf;
+         
+         // do something if we find a character insoide of myWorld
+         CSCharacter *character = (CSCharacter *)node;
+         if ( strongSelf.paused == NO ) {
+             
+             if (character == leader) {
+                 
+             }
+             else{
+                 character.idealX = leader.position.x;
+                 character.idealY = leader.position.y;
+             }
+             
+             [character update];
+         }
+         
          
          
      }];
@@ -221,6 +237,10 @@ typedef enum{
 #pragma mark - Gesture
 ///////////////////// 手勢
 -(void)didMoveToView:(SKView *)view{
+    
+    // 設置 View 的設定
+    
+    // 加入手勢
     swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwapeLeft:)];
     [swipeGestureLeft setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [view addGestureRecognizer:swipeGestureLeft];
@@ -269,7 +289,8 @@ typedef enum{
             [character moveLeftWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character moveLeftWithPlace:[NSNumber numberWithInt:place]];
+            
+            [character performSelector:@selector(moveLeftWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
         }
         
         place++;
@@ -291,7 +312,7 @@ typedef enum{
             [character moveRightWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character moveRightWithPlace:[NSNumber numberWithInt:place]];
+            [character performSelector:@selector(moveRightWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
         }
         
         place++;
@@ -312,7 +333,7 @@ typedef enum{
             [character moveUpWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character moveUpWithPlace:[NSNumber numberWithInt:place]];
+            [character performSelector:@selector(moveUpWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
         }
         
         place++;
@@ -333,7 +354,7 @@ typedef enum{
             [character moveDownWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character moveDownWithPlace:[NSNumber numberWithInt:place]];
+            [character performSelector:@selector(moveDownWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
         }
         
         place++;
