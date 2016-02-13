@@ -378,9 +378,43 @@ typedef enum{
     
     if ( recognizer.state == UIGestureRecognizerStateEnded ) {
         NSLog(@"Rotate");
+        
+        [self stopAllPlayersAndIntoLine];
     }
 }
 
+-(void)stopAllPlayersAndIntoLine{
+    // 取消上面手勢的 perform:selector:
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
+    __block unsigned char leaderDirection;
+    __block unsigned char place = 0;
+    
+    [myWorld enumerateChildNodesWithName:@"character" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        
+        CSCharacter *character = (CSCharacter *)node;
+        
+        if ( character == leader ) {
+            leaderDirection = [leader returnDirection];
+            [leader stopMoving];
+        }
+        else{
+            
+            // for place , 1 is first follower , 2 is second follower , 0 is Leader ... 
+            [character stopInFormation:leaderDirection
+                        andPlaceInLine:place
+                     andLeaderPosition:leader.position ];
+        }
+        
+        place++;
+        
+    }];
+    
+}
+
+/**
+ * @brief - 記得移除這個 View 的時候，必須要移除手勢，避免 crash
+ */
 -(void)willMoveFromView:(SKView *)view{
     NSLog(@"Scene moved from view");
     

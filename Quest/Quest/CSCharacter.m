@@ -74,7 +74,7 @@ typedef enum{
     
     判斷目前執行中的 Device 是使用 iPad 還是 iPhone, 請參考下面的範例:
      */
-    /*
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         // The device is an iPad running iOS 3.2 or later.
         self.xScale = .75;
@@ -83,7 +83,7 @@ typedef enum{
     else {
         // The device is an iPhone or iPod touch.
     }
-     */
+     
 }
 
 -(void)setupPhysics{
@@ -116,7 +116,6 @@ typedef enum{
             [self debugPath:rect bodyType:collisionBodyType];
         }
     }
-    
     
     
     /////////////// 重要：設定 physics body /////////////////
@@ -258,6 +257,57 @@ CGFloat RadiansToDegrees(CGFloat radians)
 #pragma mark - Leader Stuff
 -(void)makeLeader{
     _theLeader = YES;
+}
+
+-(int)returnDirection{
+    return currentDirection;
+}
+
+-(void)stopMoving{
+    currentDirection = noDirection;
+    [character removeAllActions];
+}
+
+-(void)stopInFormation:(int)direction
+        andPlaceInLine:(unsigned char)place
+     andLeaderPosition:(CGPoint)location{
+    int paddingX = character.frame.size.width*0.5;
+    int paddingY = character.frame.size.width*0.5;
+    
+    CGPoint newPosition = CGPointMake(0, 0);
+    switch (direction) {
+        case up:
+        {
+            newPosition = CGPointMake(location.x, location.y - (paddingY * place) );
+        }
+            break;
+        case down:
+        {
+            newPosition = CGPointMake(location.x, location.y + (paddingY * place) );
+        }
+            break;
+        case left:
+        {
+            newPosition = CGPointMake(location.x - (paddingX * place), location.y );
+        }
+            break;
+        case right:
+        {
+            newPosition = CGPointMake(location.x + (paddingX * place), location.y );
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if ( direction != noDirection ) {
+        
+    }
+    SKAction *moveInAction = [SKAction moveTo:newPosition duration:0.5f];
+    SKAction *stop = [SKAction performSelector:@selector(stopMoving) onTarget:self];
+    SKAction *sequence =[SKAction sequence:@[moveInAction , stop]];
+    [self runAction:sequence];
+    
 }
 
 @end

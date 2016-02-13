@@ -30,4 +30,10 @@
 
 -(void)makeLeader;
 
+-(int)returnDirection;
+-(void)stopMoving;
+-(void)stopInFormation:(int)direction
+        andPlaceInLine:(unsigned char)place
+     andLeaderPosition:(CGPoint)location;
+
 @end
