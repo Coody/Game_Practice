@@ -14,6 +14,7 @@
 @property (nonatomic , assign) int idealX;
 @property (nonatomic , assign) int idealY;
 @property (nonatomic , assign) BOOL theLeader;
+@property (nonatomic , assign) BOOL followingEnabled;
 
 
 //
@@ -35,5 +36,9 @@
 -(void)stopInFormation:(int)direction
         andPlaceInLine:(unsigned char)place
      andLeaderPosition:(CGPoint)location;
+
+-(void)followIntoPositionWithDirection:(int)direction
+                        andPlaceInLine:(unsigned char)place
+                     andLeaderPosition:(CGPoint)location;
 
 @end

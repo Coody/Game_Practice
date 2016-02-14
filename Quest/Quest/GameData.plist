@@ -11,9 +11,15 @@
 			<real>0.9</real>
 			<key>DebugBroader</key>
 			<true/>
+			<key>UseDelayedFollow</key>
+			<true/>
+			<key>FollowDelay</key>
+			<real>0.25</real>
 			<key>Characters</key>
 			<array>
 				<dict>
+					<key>FollowingEnabled</key>
+					<true/>
 					<key>BaseFrame</key>
 					<string>character</string>
 					<key>StartLocation</key>
@@ -28,6 +34,8 @@
 					<true/>
 				</dict>
 				<dict>
+					<key>FollowingEnabled</key>
+					<false/>
 					<key>BaseFrame</key>
 					<string>character</string>
 					<key>StartLocation</key>
@@ -42,6 +50,8 @@
 					<true/>
 				</dict>
 				<dict>
+					<key>FollowingEnabled</key>
+					<false/>
 					<key>BaseFrame</key>
 					<string>character</string>
 					<key>StartLocation</key>

@@ -40,6 +40,9 @@ typedef enum{
     CSCharacter *leader;
     
     NSArray *characterArray;
+    
+    float followDelay;
+    BOOL useDelayedFollow;
 }
 @end
 
@@ -88,6 +91,10 @@ typedef enum{
     characterArray = [NSArray arrayWithArray:[levelDict objectForKey:@"Characters"]];
     NSLog(@" character array = %@" , characterArray);
     
+    
+    // 取得是否要 Follow Delay
+    followDelay = [[levelDict objectForKey:@"FollowDelay"] floatValue];
+    useDelayedFollow = [[levelDict objectForKey:@"UseDelayedFollow"] boolValue];
     
     
     // 初始化 myWord 的基礎 SKNode
@@ -200,12 +207,13 @@ typedef enum{
          
          // do something if we find a character insoide of myWorld
          CSCharacter *character = (CSCharacter *)node;
+         
          if ( strongSelf.paused == NO ) {
              
              if (character == leader) {
                  
              }
-             else{
+             else if ( character.followingEnabled == YES ){
                  character.idealX = leader.position.x;
                  character.idealY = leader.position.y;
              }
@@ -227,8 +235,26 @@ typedef enum{
     secondBody = contact.bodyB;
     
     if ( firstBody.categoryBitMask == wallCategory || secondBody.categoryBitMask == wallCategory ) {
-        NSLog(@" Hit!!!! ");
         
+        
+    }
+    
+    if ( firstBody.categoryBitMask == playerCategory || secondBody.categoryBitMask == playerCategory ) {
+        CSCharacter *character = (CSCharacter *)firstBody.node;
+        CSCharacter *character2 = (CSCharacter *)secondBody.node;
+        
+        if ( character == leader ) {
+            if ( character2.followingEnabled == NO ) {
+                character2.followingEnabled = YES;
+                [character2 followIntoPositionWithDirection:[leader returnDirection] andPlaceInLine:1 andLeaderPosition:leader.position];
+            }
+        }
+        else if ( character2 == leader ){
+            if ( character.followingEnabled == NO ) {
+                character.followingEnabled = YES;
+                [character followIntoPositionWithDirection:[leader returnDirection] andPlaceInLine:1 andLeaderPosition:leader.position];
+            }
+        }
         
     }
 }
@@ -290,7 +316,15 @@ typedef enum{
         }
         else{
             
-            [character performSelector:@selector(moveLeftWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
+            if ( useDelayedFollow ) {
+                [character performSelector:@selector(moveLeftWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * followDelay];
+            }
+            else{
+                [character followIntoPositionWithDirection:left
+                                            andPlaceInLine:place
+                                         andLeaderPosition:leader.position];
+            }
+            
         }
         
         place++;
@@ -312,7 +346,16 @@ typedef enum{
             [character moveRightWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character performSelector:@selector(moveRightWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
+            
+            if ( useDelayedFollow ) {
+                [character performSelector:@selector(moveRightWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * followDelay];
+            }
+            else{
+                [character followIntoPositionWithDirection:right
+                                            andPlaceInLine:place
+                                         andLeaderPosition:leader.position];
+            }
+            
         }
         
         place++;
@@ -333,7 +376,16 @@ typedef enum{
             [character moveUpWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character performSelector:@selector(moveUpWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
+            
+            if ( useDelayedFollow ) {
+                [character performSelector:@selector(moveUpWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * followDelay];
+            }
+            else{
+                [character followIntoPositionWithDirection:up
+                                            andPlaceInLine:place
+                                         andLeaderPosition:leader.position];
+            }
+            
         }
         
         place++;
@@ -354,7 +406,16 @@ typedef enum{
             [character moveDownWithPlace:[NSNumber numberWithInt:0]];
         }
         else{
-            [character performSelector:@selector(moveDownWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * 0.25];
+            
+            if ( useDelayedFollow ) {
+                [character performSelector:@selector(moveDownWithPlace:) withObject:[NSNumber numberWithInt:place] afterDelay:place * followDelay];
+            }
+            else{
+                [character followIntoPositionWithDirection:down
+                                            andPlaceInLine:place
+                                         andLeaderPosition:leader.position];
+            }
+            
         }
         
         place++;

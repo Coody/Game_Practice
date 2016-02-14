@@ -59,6 +59,7 @@ typedef enum{
     self.name = @"character";
     self.position = CGPointFromString([charData objectForKey:@"StartLocation"]);
     
+    _followingEnabled = [[characterData objectForKey:@"FollowingEnabled"] boolValue];
     useForCollisions = [[characterData objectForKey:@"UseForCollisions"] boolValue];
     
     if ( useForCollisions == YES ) {
@@ -164,62 +165,65 @@ typedef enum{
 
 #pragma mark - Update Methods
 -(void)update{
-    switch (currentDirection) {
-        case up:
-        {
-            self.position = CGPointMake(self.position.x, self.position.y + speed);
-            
-            if ( _theLeader == NO && self.position.x < _idealX ) {
-                self.position = CGPointMake(self.position.x + 1, self.position.y);
+    
+    if ( _theLeader == YES || _followingEnabled == YES ) {
+        switch (currentDirection) {
+            case up:
+            {
+                self.position = CGPointMake(self.position.x, self.position.y + speed);
+                
+                if ( _theLeader == NO && self.position.x < _idealX ) {
+                    self.position = CGPointMake(self.position.x + 1, self.position.y);
+                }
+                else if( _theLeader == NO && self.position.x > _idealX ){
+                    self.position = CGPointMake(self.position.x - 1, self.position.y);
+                }
             }
-            else if( _theLeader == NO && self.position.x > _idealX ){
-                self.position = CGPointMake(self.position.x - 1, self.position.y);
+                break;
+            case down:
+            {
+                self.position = CGPointMake(self.position.x, self.position.y - speed);
+                
+                if ( _theLeader == NO && self.position.x < _idealX ) {
+                    self.position = CGPointMake(self.position.x + 1, self.position.y);
+                }
+                else if( _theLeader == NO && self.position.x > _idealX ){
+                    self.position = CGPointMake(self.position.x - 1, self.position.y);
+                }
             }
+                break;
+            case left:
+            {
+                self.position = CGPointMake(self.position.x - speed, self.position.y);
+                
+                if ( _theLeader == NO && self.position.y < _idealY ) {
+                    self.position = CGPointMake(self.position.x, self.position.y + 1);
+                }
+                else if( _theLeader == NO && self.position.y > _idealY ){
+                    self.position = CGPointMake(self.position.x, self.position.y - 1);
+                }
+            }
+                break;
+            case right:
+            {
+                self.position = CGPointMake(self.position.x + speed, self.position.y);
+                
+                if ( _theLeader == NO && self.position.y < _idealY ) {
+                    self.position = CGPointMake(self.position.x, self.position.y + 1);
+                }
+                else if( _theLeader == NO && self.position.y > _idealY ){
+                    self.position = CGPointMake(self.position.x, self.position.y - 1);
+                }
+            }
+                break;
+            case noDirection:
+            {
+                
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case down:
-        {
-            self.position = CGPointMake(self.position.x, self.position.y - speed);
-            
-            if ( _theLeader == NO && self.position.x < _idealX ) {
-                self.position = CGPointMake(self.position.x + 1, self.position.y);
-            }
-            else if( _theLeader == NO && self.position.x > _idealX ){
-                self.position = CGPointMake(self.position.x - 1, self.position.y);
-            }
-        }
-            break;
-        case left:
-        {
-            self.position = CGPointMake(self.position.x - speed, self.position.y);
-            
-            if ( _theLeader == NO && self.position.y < _idealY ) {
-                self.position = CGPointMake(self.position.x, self.position.y + 1);
-            }
-            else if( _theLeader == NO && self.position.y > _idealY ){
-                self.position = CGPointMake(self.position.x, self.position.y - 1);
-            }
-        }
-            break;
-        case right:
-        {
-            self.position = CGPointMake(self.position.x + speed, self.position.y);
-            
-            if ( _theLeader == NO && self.position.y < _idealY ) {
-                self.position = CGPointMake(self.position.x, self.position.y + 1);
-            }
-            else if( _theLeader == NO && self.position.y > _idealY ){
-                self.position = CGPointMake(self.position.x, self.position.y - 1);
-            }
-        }
-            break;
-        case noDirection:
-        {
-            
-        }
-            break;
-        default:
-            break;
     }
 }
 
@@ -235,23 +239,37 @@ CGFloat RadiansToDegrees(CGFloat radians)
 };
 
 -(void)moveLeftWithPlace:(NSNumber *)place{
-    character.zRotation = DegreeToRadians(-90);
-    currentDirection = left;
+    
+    if ( _theLeader == YES || _followingEnabled == YES ){
+        character.zRotation = DegreeToRadians(-90);
+        currentDirection = left;
+    }
+    
+    
 }
 
 -(void)moveRightWithPlace:(NSNumber *)place{
-    character.zRotation = DegreeToRadians(90);
-    currentDirection = right;
+    
+    if ( _theLeader == YES || _followingEnabled == YES ){
+        character.zRotation = DegreeToRadians(90);
+        currentDirection = right;
+    }
 }
 
 -(void)moveDownWithPlace:(NSNumber *)place{
-    character.zRotation = DegreeToRadians(0);
-    currentDirection = down;
+    
+    if ( _theLeader == YES || _followingEnabled == YES ){
+        character.zRotation = DegreeToRadians(0);
+        currentDirection = down;
+    }
 }
 
 -(void)moveUpWithPlace:(NSNumber *)place{
-    character.zRotation = DegreeToRadians(180);
-    currentDirection = up;
+    
+    if ( _theLeader == YES || _followingEnabled == YES ){
+        character.zRotation = DegreeToRadians(180);
+        currentDirection = up;
+    }
 }
 
 #pragma mark - Leader Stuff
@@ -271,43 +289,89 @@ CGFloat RadiansToDegrees(CGFloat radians)
 -(void)stopInFormation:(int)direction
         andPlaceInLine:(unsigned char)place
      andLeaderPosition:(CGPoint)location{
-    int paddingX = character.frame.size.width*0.5;
-    int paddingY = character.frame.size.width*0.5;
     
-    CGPoint newPosition = CGPointMake(0, 0);
-    switch (direction) {
-        case up:
-        {
-            newPosition = CGPointMake(location.x, location.y - (paddingY * place) );
+    if ( _followingEnabled == YES && currentDirection != noDirection ) {
+        int paddingX = character.frame.size.width*0.67;
+        int paddingY = character.frame.size.width*0.67;
+        
+        CGPoint newPosition = CGPointMake(self.position.x, self.position.y);
+        switch (direction) {
+            case up:
+            {
+                newPosition = CGPointMake(location.x, location.y - (paddingY * place) );
+            }
+                break;
+            case down:
+            {
+                newPosition = CGPointMake(location.x, location.y + (paddingY * place) );
+            }
+                break;
+            case right:
+            {
+                newPosition = CGPointMake(location.x - (paddingX * place), location.y );
+            }
+                break;
+            case left:
+            {
+                newPosition = CGPointMake(location.x + (paddingX * place), location.y );
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case down:
-        {
-            newPosition = CGPointMake(location.x, location.y + (paddingY * place) );
-        }
-            break;
-        case left:
-        {
-            newPosition = CGPointMake(location.x - (paddingX * place), location.y );
-        }
-            break;
-        case right:
-        {
-            newPosition = CGPointMake(location.x + (paddingX * place), location.y );
-        }
-            break;
-        default:
-            break;
+        
+        SKAction *moveInAction = [SKAction moveTo:newPosition duration:0.5f];
+        SKAction *stop = [SKAction performSelector:@selector(stopMoving) onTarget:self];
+        SKAction *sequence =[SKAction sequence:@[moveInAction , stop]];
+        [self runAction:sequence];
     }
     
-    if ( direction != noDirection ) {
+    
+}
+
+-(void)followIntoPositionWithDirection:(int)direction
+                        andPlaceInLine:(unsigned char)place
+                     andLeaderPosition:(CGPoint)location{
+    
+    if ( _followingEnabled == YES ) {
+        
+        int paddingX = character.frame.size.width*0.67;
+        int paddingY = character.frame.size.width*0.67;
+        
+        CGPoint newPosition = CGPointMake(0, 0);
+        switch (direction) {
+            case up:
+            {
+                newPosition = CGPointMake(location.x, location.y - (paddingY * place) );
+                [self moveUpWithPlace:[NSNumber numberWithInt:place]];
+            }
+                break;
+            case down:
+            {
+                newPosition = CGPointMake(location.x, location.y + (paddingY * place) );
+                [self moveDownWithPlace:[NSNumber numberWithInt:place]];
+            }
+                break;
+            case right:
+            {
+                newPosition = CGPointMake(location.x - (paddingX * place), location.y );
+                [self moveRightWithPlace:[NSNumber numberWithInt:place]];
+            }
+                break;
+            case left:
+            {
+                newPosition = CGPointMake(location.x + (paddingX * place), location.y );
+                [self moveLeftWithPlace:[NSNumber numberWithInt:place]];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        SKAction *moveIntoLine = [SKAction moveTo:newPosition duration:0.2f];
+        [self runAction:moveIntoLine];
         
     }
-    SKAction *moveInAction = [SKAction moveTo:newPosition duration:0.5f];
-    SKAction *stop = [SKAction performSelector:@selector(stopMoving) onTarget:self];
-    SKAction *sequence =[SKAction sequence:@[moveInAction , stop]];
-    [self runAction:sequence];
-    
 }
 
 @end
