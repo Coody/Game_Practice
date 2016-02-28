@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "default_pose.png",
+      "filename" : "healthbar.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "default_pose@2x.png",
+      "filename" : "healthbar@2x.png",
       "scale" : "2x"
     },
     {

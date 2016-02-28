@@ -40,7 +40,6 @@ typedef enum{
 -(id)init{
     if ( self = [super init] ) {
         
-        speed = 5;
         currentDirection = noDirection;
         
     }
@@ -61,6 +60,8 @@ typedef enum{
     
     _followingEnabled = [[characterData objectForKey:@"FollowingEnabled"] boolValue];
     useForCollisions = [[characterData objectForKey:@"UseForCollisions"] boolValue];
+    
+    speed = [[characterData objectForKey:@"Speed"] integerValue];
     
     if ( useForCollisions == YES ) {
         [self setupPhysics];

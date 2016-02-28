@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "default_pose.png",
+      "filename" : "green_of_health.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "default_pose@2x.png",
+      "filename" : "green_of_health@2x.png",
       "scale" : "2x"
     },
     {
