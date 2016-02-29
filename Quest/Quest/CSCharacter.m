@@ -32,6 +32,25 @@ typedef enum{
     unsigned char speed;    // 0~255
     unsigned char currentDirection;
     
+    BOOL useFrontViewFrames;
+    BOOL useRestingFrames;
+    BOOL useSideViewFrames;
+    BOOL useBackViewFrames;
+    BOOL useSideAttackFrames;
+    BOOL useFrontAttackFrames;
+    BOOL useBackAttackFrames;
+    
+    SKAction *walkFrontAction;
+    SKAction *walkBackAction;
+    SKAction *walkSideAction;
+    SKAction *repeatRest;
+    SKAction *sideAttackAction;
+    SKAction *frontAttackAction;
+    SKAction *backAttackAction;
+    
+    unsigned char fps; // the range is 0~ 255 , but really 1~60 is fine
+    
+    
 }
 @end
 
@@ -62,6 +81,45 @@ typedef enum{
     useForCollisions = [[characterData objectForKey:@"UseForCollisions"] boolValue];
     
     speed = [[characterData objectForKey:@"Speed"] integerValue];
+    
+    // Textures
+    fps = [[charData objectForKey:@"FPS"] integerValue];
+
+    useBackViewFrames = [[charData objectForKey:@"UseBackViewFrames"] boolValue];
+    useSideViewFrames = [[charData objectForKey:@"UseSideViewFrames"] boolValue];
+    useFrontViewFrames = [[charData objectForKey:@"UseFrontViewFrames"] boolValue];
+    useRestingFrames = [[charData objectForKey:@"UseRestingFrames"] boolValue];
+    useSideAttackFrames = [[charData objectForKey:@"UseSideAttackFrames"] boolValue];
+    useFrontAttackFrames = [[charData objectForKey:@"UseFrontAttackFrames"] boolValue];
+    useBackAttackFrames = [[charData objectForKey:@"UseBackAttackFrames"] boolValue];
+    
+    if ( useRestingFrames == YES) {
+        [self setUpRest];
+    }
+    
+    if ( useSideViewFrames == YES) {
+        [self setUpWalkSide];
+    }
+    
+    if ( useBackViewFrames == YES ) {
+        [self setUpWalkBack];
+    }
+    
+    if ( useFrontViewFrames == YES ) {
+        [self setUpWalkFront];
+    }
+    
+    if ( useBackAttackFrames == YES ) {
+        [self setUpBackAttackFrames];
+    }
+    
+    if ( useSideAttackFrames == YES ) {
+        [self setUpSideAttackFrames];
+    }
+    
+    if ( useFrontAttackFrames == YES ) {
+        [self setUpFrontAttackFrames];
+    }
     
     if ( useForCollisions == YES ) {
         [self setupPhysics];
@@ -138,6 +196,168 @@ typedef enum{
     
     // 碰撞後會聯繫的 category ，可以用 | 來聯繫多個 body ，然後同上
     self.physicsBody.contactTestBitMask = wallCategory | playerCategory;
+}
+
+#pragma mark - Rest / Walk Frames
+-(void)setUpRest{
+    
+    /**
+     動畫效果設定
+     */
+    
+    // 設定 SKTestureAtlas 的MFDHCG0000027537  
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"RestingAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"RestingFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    SKAction *wait = [SKAction waitForDuration:0.5f];
+    SKAction *sequence = [SKAction sequence:@[atlasAnimation , wait ]];
+    repeatRest = [SKAction repeatActionForever:sequence];
+    
+}
+
+-(void)setUpWalkFront{
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"WalkFrontAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"WalkFrontFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    walkFrontAction = [SKAction repeatActionForever:atlasAnimation];
+}
+
+-(void)setUpWalkBack{
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"WalkBackAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"WalkBackFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    walkBackAction = [SKAction repeatActionForever:atlasAnimation];
+}
+
+-(void)setUpWalkSide{
+    
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"WalkSideAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"WalkSideFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    walkSideAction = [SKAction repeatActionForever:atlasAnimation];
+    
+}
+
+#pragma mark - Attack Frames
+-(void)setUpBackAttackFrames{
+    
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"BackAttackAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"BackAttackFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    
+    if ( useBackViewFrames == YES ) {
+        SKAction *returnToWalking = [SKAction performSelector:@selector(runWalkBackTextures) onTarget:self];
+        backAttackAction = [SKAction sequence:@[atlasAnimation , returnToWalking]];
+    }
+    else{
+        backAttackAction = [SKAction repeatAction:atlasAnimation count:1];
+    }
+    
+}
+
+-(void)setUpSideAttackFrames{
+    
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"SideAttackAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"SideAttackFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    
+    if ( useSideViewFrames == YES ) {
+        SKAction *returnToWalking = [SKAction performSelector:@selector(runWalkSideTextures) onTarget:self];
+        sideAttackAction = [SKAction sequence:@[atlasAnimation , returnToWalking]];
+    }
+    else{
+        sideAttackAction = [SKAction repeatAction:atlasAnimation count:1];
+    }
+    
+}
+
+-(void)setUpFrontAttackFrames{
+    
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"FrontAttackAtlasFile"]];
+    NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"FrontAttackFrames"]];
+    
+    NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
+    
+    unsigned char count = 0;
+    
+    for ( id object in array ) {
+        SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
+        [atlasTextures addObject:texture];
+        count++;
+    }
+    
+    SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
+    
+    if ( useFrontViewFrames == YES ) {
+        SKAction *returnToWalking = [SKAction performSelector:@selector(runWalkFrontTextures) onTarget:self];
+        frontAttackAction = [SKAction sequence:@[atlasAnimation , returnToWalking]];
+    }
+    else{
+        frontAttackAction = [SKAction repeatAction:atlasAnimation count:1];
+    }
+    
 }
 
 -(void)debugPath:(CGRect)theRect bodyType:(int)type{
