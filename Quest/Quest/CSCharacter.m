@@ -137,8 +137,8 @@ typedef enum{
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         // The device is an iPad running iOS 3.2 or later.
-        self.xScale = .75;
-        self.yScale = .75;
+        self.xScale = 0.75;
+        self.yScale = 0.75;
     }
     else {
         // The device is an iPhone or iPod touch.
@@ -261,11 +261,15 @@ typedef enum{
 
 -(void)setUpWalkSide{
     
+    // 取得 atlas 圖片集合（其實是一個圖片資料夾）
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:[characterData objectForKey:@"WalkSideAtlasFile"]];
+    // 取得動畫圖片的檔案名稱（有順序性，所以才能組合成連續圖片變成動畫）
     NSArray *array = [NSArray arrayWithArray:[characterData objectForKey:@"WalkSideFrames"]];
     
+    // 建立一個陣列，陣列內將會依照順序拿來存一張張的動畫圖片
     NSMutableArray *atlasTextures = [NSMutableArray arrayWithCapacity:[array count]];
     
+    // 存入動畫圖片
     unsigned char count = 0;
     for ( id object in array ) {
         SKTexture *texture = [atlas textureNamed:[array objectAtIndex:count]];
@@ -273,6 +277,7 @@ typedef enum{
         count++;
     }
     
+    // 既練一個 SKAction ，然後展示動畫
     SKAction *atlasAnimation = [SKAction animateWithTextures:atlasTextures timePerFrame:(1.0/fps)];
     walkSideAction = [SKAction repeatActionForever:atlasAnimation];
     
